@@ -1,0 +1,67 @@
+{
+  "name": "bucks",
+  "version": "0.0.1",
+  "description": "Bucks is currency converter written as a progressive web app.",
+  "main": "server/start.ts",
+  "scripts": {
+    "test": "jest test",
+    "build": "rm -rf ./build && npm run build:client && tsc && cp -r client/public build/public",
+    "start": "NODE_ENV=production node build/start.js",
+    "dev:client": "cd ./client && gatsby develop",
+    "dev:server": " NODE_ENV=development nodemon --config \"config/nodemon.json\"/",
+    "build:client": "cd ./client && gatsby build",
+    "serve:client": "cd ./client && gatsby serve",
+    "serve:server": "npm run build && NODE_ENV=production PORT=8080 node build/start.js",
+    "lint": "tslint './**/*.ts*' -e './tests/__coverage__/**' -e './**/node_modules/**' --format stylish"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ckjeldgaard/bucks.git"
+  },
+  "keywords": [
+    "nodejs",
+    "typescript",
+    "express",
+    "pwa",
+    "jest",
+    "stryker",
+    "gatsby",
+    "react"
+  ],
+  "author": "Christoffer Kjeldgaard Petersen",
+  "license": "MIT",
+  "homepage": "https://bucks-currency-converter.appspot.com/",
+  "dependencies": {
+    "@overnightjs/core": "^1.6.9",
+    "@overnightjs/logger": "^1.1.9",
+    "body-parser": "^1.19.0",
+    "express": "^4.17.1"
+  },
+  "devDependencies": {
+    "@babel/plugin-proposal-decorators": "^7.6.0",
+    "@babel/preset-typescript": "^7.6.0",
+    "@testing-library/jest-dom": "^4.1.0",
+    "@testing-library/react": "^9.1.4",
+    "@types/express": "^4.17.1",
+    "@types/jest": "^24.0.18",
+    "@types/node": "^12.7.4",
+    "@types/react": "^16.9.2",
+    "@types/react-dom": "^16.9.0",
+    "@types/supertest": "^2.0.8",
+    "babel-core": "^6.26.3",
+    "babel-jest": "^24.9.0",
+    "babel-preset-gatsby": "^0.2.13",
+    "identity-obj-proxy": "^3.0.0",
+    "jest": "^24.9.0",
+    "moxios": "^0.4.0",
+    "nodemon": "^1.19.2",
+    "react": "^16.9.0",
+    "react-addons-test-utils": "^15.6.2",
+    "react-dom": "^16.9.0",
+    "react-test-renderer": "^16.9.0",
+    "supertest": "^4.0.2",
+    "ts-node": "^8.3.0",
+    "tslint": "^5.20.0",
+    "typescript": "^3.6.3"
+  }
+}
