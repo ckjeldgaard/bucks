@@ -1,0 +1,6 @@
+{
+  "watch": ["server"],
+  "ext": "ts",
+  "ignore": ["public"],
+  "exec": "ts-node server/start.ts"
+}
