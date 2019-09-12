@@ -7,7 +7,7 @@ describe('Server', () => {
         const server: BucksServer = new BucksServer('');
         const response: request.Response = await request(server.getExpressApp()).get('/api/currencies');
 
-        expect(response.ok).toBeTruthy()
+        expect(response.ok).toBeTruthy();
         expect(response.body).toEqual({
           base: 'USD',
           date: '2019-09-12',
