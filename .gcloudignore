@@ -19,9 +19,6 @@ node_modules/
 # IntelliJ files:
 .idea/
 
-# Build folders:
-build/
-
 # Gatsby files
 .cache/
 public
