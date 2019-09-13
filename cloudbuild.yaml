@@ -5,8 +5,6 @@ steps:
     args: [ 'run', 'lint']
   - name: 'gcr.io/cloud-builders/npm'
     args: ['test']
-  - name: 'script-runner'
-    args: ['bash', './curl.bash']
   - name: 'gcr.io/cloud-builders/npm'
     args: ['run', 'build']
   - name: 'gcr.io/cloud-builders/gcloud'
