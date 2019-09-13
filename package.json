@@ -4,7 +4,7 @@
   "description": "Bucks is currency converter written as a progressive web app.",
   "main": "server/start.ts",
   "scripts": {
-    "test": "jest test",
+    "test": "jest test --coverage",
     "build": "rm -rf ./build && npm run build:client && tsc && cp -r client/public build/public",
     "start": "NODE_ENV=production node build/start.js",
     "dev:client": "cd ./client && gatsby develop",
