@@ -9,7 +9,7 @@
     "start": "NODE_ENV=production node build/start.js",
     "dev:client": "cd ./client && gatsby develop",
     "dev:server": " NODE_ENV=development nodemon --config \"config/nodemon.json\"/",
-    "build:client": "cd ./client && gatsby build",
+    "build:client": "cd ./client && npm install && gatsby build && cd ../",
     "serve:client": "cd ./client && gatsby serve",
     "serve:server": "npm run build && NODE_ENV=production PORT=8080 node build/start.js",
     "lint": "tslint './**/*.ts*' -e './tests/__coverage__/**' -e './**/node_modules/**' --format stylish"
@@ -32,7 +32,6 @@
   "license": "MIT",
   "homepage": "https://bucks-currency-converter.appspot.com/",
   "dependencies": {
-    "gatsby": "^2.15.14",
     "@overnightjs/core": "^1.6.9",
     "@overnightjs/logger": "^1.1.9",
     "body-parser": "^1.19.0",
