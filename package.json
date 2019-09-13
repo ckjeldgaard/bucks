@@ -32,6 +32,7 @@
   "license": "MIT",
   "homepage": "https://bucks-currency-converter.appspot.com/",
   "dependencies": {
+    "gatsby": "^2.15.14",
     "@overnightjs/core": "^1.6.9",
     "@overnightjs/logger": "^1.1.9",
     "body-parser": "^1.19.0",
