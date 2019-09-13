@@ -6,7 +6,7 @@ steps:
   - name: 'gcr.io/cloud-builders/npm'
     args: ['test']
   - name: 'gcr.io/cloud-builders/npm'
-    args: ['build']
+    args: ['run', 'build']
   - name: 'gcr.io/cloud-builders/gcloud'
     args: [ 'app', 'deploy', '--version=1' ]
 timeout: "1600s"
