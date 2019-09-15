@@ -21,3 +21,4 @@ node_modules/
 
 # Reports:
 tests/__coverage__
+.env

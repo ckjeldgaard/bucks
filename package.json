@@ -6,6 +6,7 @@
   "scripts": {
     "test": "jest test --coverage",
     "build": "rm -rf ./build && npm run build:client && npm run build:server",
+    "prestart": "GCLOUD_PROJECT=bucks-currency-converter ./node_modules/.bin/sync",
     "start": "NODE_ENV=production node build/start.js",
     "dev:client": "cd ./client && gatsby develop",
     "dev:server": " NODE_ENV=development nodemon --config \"config/nodemon.json\"/",
@@ -33,11 +34,14 @@
   "license": "MIT",
   "homepage": "https://bucks-currency-converter.appspot.com/",
   "dependencies": {
+    "@invisible/deploy": "^1.0.13",
     "@overnightjs/core": "^1.6.9",
     "@overnightjs/logger": "^1.1.9",
     "@types/axios": "^0.14.0",
+    "@types/dotenv": "^6.1.1",
     "axios": "^0.19.0",
     "body-parser": "^1.19.0",
+    "dotenv": "^8.1.0",
     "express": "^4.17.1"
   },
   "devDependencies": {
