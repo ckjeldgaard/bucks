@@ -1,16 +1,6 @@
 steps:
-  - name: 'gcr.io/cloud-builders/npm'
-    args: ['install']
-  - name: 'gcr.io/cloud-builders/npm'
-    args: [ 'run', 'lint']
-  - name: 'gcr.io/cloud-builders/npm'
-    args: ['test']
-  - name: 'gcr.io/cloud-builders/npm'
-    args: ['run', 'build:client']
-  - name: 'gcr.io/cloud-builders/npm'
-    args: ['run', 'build:server']
-  - name: 'gcr.io/cloud-builders/npm'
-    args: ['run', 'prestart']
-  - name: 'gcr.io/cloud-builders/gcloud'
-    args: [ 'app', 'deploy' ]
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['build', '-t', 'gcr.io/bucks-xchange-rates/xchange:${SHORT_SHA}', '.']
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ["push", "gcr.io/bucks-xchange-rates/xchange"]
 timeout: "1600s"
