@@ -12,6 +12,8 @@
     "importHelpers": true,
     "esModuleInterop": true,
     "jsx": "react",
+    "forceConsistentCasingInFileNames": true,
+    "noImplicitAny": true,
     "types": [
       "node", "jest"
     ],

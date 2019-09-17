@@ -13,7 +13,7 @@
     "build:server": "node_modules/.bin/tsc && cp -r client/public build/public",
     "serve:client": "cd ./client && gatsby serve",
     "serve:server": "npm run build && NODE_ENV=production PORT=8080 node build/start.js",
-    "lint": "tslint './**/*.ts*' -e './tests/__coverage__/**' -e './**/node_modules/**' --format stylish"
+    "lint": "tslint './**/*.ts*' -e './tests/__coverage__/**' -e './**/node_modules/**' --format stylish -p ."
   },
   "repository": {
     "type": "git",
@@ -67,6 +67,7 @@
     "supertest": "^4.0.2",
     "ts-node": "^8.3.0",
     "tslint": "^5.20.0",
+    "tslint-etc": "^1.7.0",
     "typescript": "^3.6.3"
   }
 }

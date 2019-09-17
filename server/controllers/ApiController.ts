@@ -1,5 +1,5 @@
 import {Request, Response} from 'express';
-import {Controller, Get, Put, Post, Delete} from '@overnightjs/core';
+import {Controller, Get} from '@overnightjs/core';
 import {Logger} from '@overnightjs/logger';
 
 
@@ -7,7 +7,7 @@ import {Logger} from '@overnightjs/logger';
 export class ApiController {
 
   @Get('currencies')
-  private apiCurrencies(req: Request, res: Response) {
+  private apiCurrencies(req: Request, res: Response): void {
     const currencies = {
       base: 'USD',
       date: '2019-09-12',

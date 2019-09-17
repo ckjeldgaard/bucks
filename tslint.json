@@ -1,5 +1,8 @@
 {
-  "extends": "tslint:recommended",
+  "extends": [
+    "tslint:recommended",
+    "tslint-etc"
+  ],
   "rules": {
     "lines-between-class-members": [true, 2],
     "max-line-length": {
@@ -12,6 +15,12 @@
     "quotemark": [true, "single"],
     "variable-name": [true, "allow-leading-underscore"],
     "interface-name": [true, "never-prefix"],
-    "indent": [true, "spaces", 2]
+    "indent": [true, "spaces", 2],
+    "no-unused-declaration": true,
+    "typedef": [
+      true,
+      "call-signature",
+      "property-declaration"
+    ]
   }
 }

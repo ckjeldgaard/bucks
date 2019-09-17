@@ -1,5 +1,5 @@
 import {Request, Response} from 'express';
-import {Controller, Get, Put, Post, Delete} from '@overnightjs/core';
+import {Controller, Get} from '@overnightjs/core';
 import {Logger} from '@overnightjs/logger';
 import axios from 'axios';
 
@@ -9,7 +9,7 @@ export class CronController {
   private readonly API_BASE_URL: string = 'http://data.fixer.io';
 
   @Get()
-  private async fetchLatestCurrencies(req: Request, res: Response) {
+  private async fetchLatestCurrencies(req: Request, res: Response): Promise<void> {
 
     try {
       const data =
