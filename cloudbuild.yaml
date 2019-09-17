@@ -4,5 +4,5 @@ steps:
   - name: 'gcr.io/cloud-builders/docker'
     args: ["push", "gcr.io/bucks-xchange-rates/xchange"]
   - name: 'gcr.io/cloud-builders/gcloud'
-    args: ['beta', 'run', 'deploy', 'xchange', '--image', 'gcr.io/bucks-xchange-rates/xchange:${SHORT_SHA}', '--region', 'europe-west1']
+    args: ['beta', 'run', 'deploy', 'xchange', '--image', 'gcr.io/bucks-xchange-rates/xchange:${SHORT_SHA}', '--region', 'europe-west1', '--platform', 'managed']
 timeout: "1600s"
