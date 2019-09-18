@@ -37,15 +37,6 @@ class BucksServer extends Server {
   }
 
   private setupControllers(): void {
-    /* const ctrlInstances = [];
-    for (const name in controllers) {
-      if (controllers.hasOwnProperty(name) && name !== '__esModule') {
-        const controller = (controllers as any)[name];
-        ctrlInstances.push(
-          new controller(new StorageRepository('bucks-conversion-rates', 'rates.json'))
-        );
-      }
-    } */
     super.addControllers(this.controllers);
   }
 
