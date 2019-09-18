@@ -9,31 +9,25 @@ export default class FakeStorageStream implements StorageStream {
     this.rates = rates;
   }
 
+  /**
+   * Returns a fake readable stream containing a string version of the rates
+   * provided in the constructor.
+   */
   public getReadableStream(): Readable {
-
-  let emitted: boolean = false;
-  const mockEventStream: Readable = new Readable({
-    objectMode: true,
-    read: (size: number) => {
-      if (!emitted) {
-        emitted = true;
-        return mockEventStream.push(JSON.stringify(this.rates));
-      } else {
-        mockEventStream.push(null);
-        mockEventStream.emit('end');
-      }
-    },
-  });
-  return mockEventStream;
-
-
-    /*
-    const stream = new Readable();
-    stream._read = (size) => {  };
-    stream.emit('data', JSON.stringify(this.rates));
-    stream.emit('end'); // EOF
-    return stream;
-    */
+    let emitted: boolean = false;
+    const mockEventStream: Readable = new Readable({
+      objectMode: true,
+      read: (size: number) => {
+        if (!emitted) {
+          emitted = true;
+          return mockEventStream.push(JSON.stringify(this.rates));
+        } else {
+          mockEventStream.push(null);
+          mockEventStream.emit('end');
+        }
+      },
+    });
+    return mockEventStream;
   }
 
 }
