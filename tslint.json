@@ -19,6 +19,7 @@
     "no-unused-declaration": true,
     "no-console": false,
     "no-conditional-assignment": false,
+    "no-empty-interface": false,
     "typedef": [
       true,
       "call-signature",

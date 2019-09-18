@@ -1,29 +1,22 @@
 import Repository from './Repository';
 import Rates from '../model/Rates';
 import {Logger} from '@overnightjs/logger';
-import {Storage} from '@google-cloud/storage';
 import {Readable} from 'stream';
 import PromiseReadable from 'promise-readable';
+import {StorageStream} from './stream/StorageStream';
 
 export default class StorageRepository implements Repository {
 
-  private readonly bucketName: string;
-  private readonly jsonFileName: string;
-  private readonly storage: Storage;
+  private readonly storageStream: StorageStream;
 
-  constructor(bucketName: string, jsonFileName: string) {
-    this.bucketName = bucketName;
-    this.jsonFileName = jsonFileName;
-    this.storage = new Storage();
+  constructor(storageStream: StorageStream) {
+    this.storageStream = storageStream;
   }
 
   public async getRates(): Promise<Rates> {
-    const readableStream: Readable = this.storage
-      .bucket(this.bucketName)
-      .file(this.jsonFileName)
-      .createReadStream();
-
-    return await this.transformStream(readableStream);
+    return await this.transformStream(
+      this.storageStream.getReadableStream(),
+    );
   }
 
   private transformStream(stream: Readable): Promise<Rates> {

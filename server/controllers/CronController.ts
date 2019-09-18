@@ -2,9 +2,10 @@ import {Request, Response} from 'express';
 import {Controller, Get} from '@overnightjs/core';
 import {Logger} from '@overnightjs/logger';
 import axios from 'axios';
+import {Ctrl} from './Ctrl';
 
 @Controller('cron')
-export class CronController {
+export class CronController implements Ctrl {
 
   private readonly API_BASE_URL: string = 'http://data.fixer.io';
 

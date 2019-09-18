@@ -2,10 +2,11 @@ import {Request, Response} from 'express';
 import {Controller, Get} from '@overnightjs/core';
 import {Logger} from '@overnightjs/logger';
 import Repository from '../data/Repository';
+import {Ctrl} from './Ctrl';
 
 
 @Controller('api')
-export class ApiController {
+export class ApiController implements Ctrl {
 
   private readonly repository: Repository;
 

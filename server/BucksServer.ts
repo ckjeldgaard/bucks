@@ -1,19 +1,21 @@
 import express, {Router} from 'express';
 import * as bodyParser from 'body-parser';
-import * as controllers from './controllers';
 import * as path from 'path';
 
 import {Server} from '@overnightjs/core';
 import {Logger} from '@overnightjs/logger';
-import StorageRepository from './data/StorageRepository';
+import {Ctrl} from './controllers/Ctrl';
 
 class BucksServer extends Server {
   private readonly router: Router;
   private readonly clientPath: string;
 
-  constructor(clientPath: string) {
+  private readonly controllers: Ctrl[];
+
+  constructor(clientPath: string, controllers: Ctrl[]) {
     super(true);
     this.clientPath = clientPath;
+    this.controllers = controllers;
 
     this.app.use(bodyParser.json());
     this.app.use(bodyParser.urlencoded({extended: true}));
@@ -35,14 +37,16 @@ class BucksServer extends Server {
   }
 
   private setupControllers(): void {
-    const ctrlInstances = [];
+    /* const ctrlInstances = [];
     for (const name in controllers) {
       if (controllers.hasOwnProperty(name) && name !== '__esModule') {
         const controller = (controllers as any)[name];
-        ctrlInstances.push(new controller(new StorageRepository('bucks-conversion-rates', 'rates.json')));
+        ctrlInstances.push(
+          new controller(new StorageRepository('bucks-conversion-rates', 'rates.json'))
+        );
       }
-    }
-    super.addControllers(ctrlInstances);
+    } */
+    super.addControllers(this.controllers);
   }
 
   public start(port: number): void {
