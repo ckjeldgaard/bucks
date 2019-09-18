@@ -15,19 +15,19 @@ export default class FakeStorageStream implements StorageStream {
    */
   public getReadableStream(): Readable {
     let emitted: boolean = false;
-    const mockEventStream: Readable = new Readable({
+    const stream: Readable = new Readable({
       objectMode: true,
       read: (size: number) => {
         if (!emitted) {
           emitted = true;
-          return mockEventStream.push(JSON.stringify(this.rates));
+          return stream.push(JSON.stringify(this.rates));
         } else {
-          mockEventStream.push(null);
-          mockEventStream.emit('end');
+          stream.push(null);
+          stream.emit('end');
         }
       },
     });
-    return mockEventStream;
+    return stream;
   }
 
 }
