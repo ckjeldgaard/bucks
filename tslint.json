@@ -17,6 +17,8 @@
     "interface-name": [true, "never-prefix"],
     "indent": [true, "spaces", 2],
     "no-unused-declaration": true,
+    "no-console": false,
+    "no-conditional-assignment": false,
     "typedef": [
       true,
       "call-signature",

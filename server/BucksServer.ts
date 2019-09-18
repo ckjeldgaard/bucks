@@ -5,6 +5,7 @@ import * as path from 'path';
 
 import {Server} from '@overnightjs/core';
 import {Logger} from '@overnightjs/logger';
+import StorageRepository from './data/StorageRepository';
 
 class BucksServer extends Server {
   private readonly router: Router;
@@ -38,7 +39,7 @@ class BucksServer extends Server {
     for (const name in controllers) {
       if (controllers.hasOwnProperty(name) && name !== '__esModule') {
         const controller = (controllers as any)[name];
-        ctrlInstances.push(new controller());
+        ctrlInstances.push(new controller(new StorageRepository('bucks-conversion-rates', 'rates.json')));
       }
     }
     super.addControllers(ctrlInstances);
