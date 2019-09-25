@@ -7,8 +7,7 @@ import FakeStorageStream from './__fakes__/FakeStorageStream';
 describe('Server', () => {
     it('echoes a message in the api', async () => {
 
-      const cRates = {CAD: 1.260046, CHF: 0.933058, EUR: 0.806942, GBP: 0.719154 };
-      const apiResponse = { rates: cRates };
+      const apiResponse = { rates: {DKK: 7.466899, NOK: 9.875919, SEK: 10.705554 } };
       const server: BucksServer = new BucksServer(
         '',
         [],
@@ -19,29 +18,12 @@ describe('Server', () => {
       );
       const response: request.Response = await request(server.getExpressApp())
         .post('/api/currencies')
-        .send({ query: `{ rates { code, rate }}`});
-
-      const expected = {
-        data: {
-          rates: [
-            {
-              code: 'AED',
-              rate: 4.032625,
-            },
-            {
-              code: 'DKK',
-              rate: 86.086235,
-            },
-            {
-              code: 'ALL',
-              rate: 121.005361,
-            },
-          ],
-        },
-      };
+        .send({ query: `{rate(id: ["DKK", "NOK", "SEK"]) {code}}`});
 
       expect(response.ok).toBeTruthy();
-      expect(response.body).toEqual(expected);
+      expect(response.body).toEqual({
+        data: {rate: [{code: 'DKK'}, {code: 'NOK'}, {code: 'SEK'}]},
+      });
     });
 
     it('serves a page not found page', async () => {

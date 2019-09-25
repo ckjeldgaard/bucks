@@ -70,13 +70,19 @@ export default class ApiSchema implements Schema {
                 new GraphQLList(GraphQLString),
             },
           },
-          resolve: (source, {id}) => {
-            console.log('id', id);
+          resolve: async (source, {id}) => {
+
+            const apiRates = await this.repository.getRates();
+
             const postsList: object[] = [];
-            // tslint:disable-next-line:forin
-            for (const identifier in id) {
-              // @ts-ignore
-              postsList.push(rates[identifier]);
+            for (const codeKey in apiRates) {
+              if (apiRates.hasOwnProperty(codeKey) && id.includes(codeKey)) {
+
+                postsList.push({
+                  code: codeKey,
+                  rate: apiRates[codeKey],
+                });
+              }
             }
             return postsList;
           },
