@@ -7,7 +7,6 @@ import {
   GraphQLString,
 } from 'graphql';
 import Repository from '../../data/Repository';
-import {Logger} from '@overnightjs/logger';
 
 export default class ApiSchema implements Schema {
 
@@ -21,32 +20,6 @@ export default class ApiSchema implements Schema {
   }
 
   public provideSchema(): GraphQLSchema {
-
-    const rates = [
-      {
-        code: 'AED',
-        rate: 4.032625,
-      },
-      {
-        code: 'DKK',
-        rate: 86.086235,
-      },
-      {
-        code: 'ALL',
-        rate: 121.005361,
-      },
-    ];
-
-    const authors = {
-      Flavio: {
-        name: 'Flavio',
-        age: 36,
-      },
-      Roger: {
-        name: 'Alesandro',
-        age: 7,
-      },
-    };
 
     const rateType =  new GraphQLObjectType({
       name: 'Rate',
@@ -89,8 +62,19 @@ export default class ApiSchema implements Schema {
         },
         rates: {
           type: new GraphQLList(rateType),
-          resolve: () => {
-            return rates;
+          resolve: async () => {
+            const apiRates = await this.repository.getRates();
+
+            const postsList: object[] = [];
+            for (const codeKey in apiRates) {
+              if (apiRates.hasOwnProperty(codeKey)) {
+                postsList.push({
+                  code: codeKey,
+                  rate: apiRates[codeKey],
+                });
+              }
+            }
+            return postsList;
           },
         },
       },
