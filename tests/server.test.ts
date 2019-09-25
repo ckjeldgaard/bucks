@@ -11,13 +11,37 @@ describe('Server', () => {
       const apiResponse = { rates: cRates };
       const server: BucksServer = new BucksServer(
         '',
-        [new ApiController(new StorageRepository(new FakeStorageStream(apiResponse)))],
+        [],
+        new ApiController(
+          '/api/currencies',
+          new StorageRepository(new FakeStorageStream(apiResponse)),
+        ),
       );
       const response: request.Response = await request(server.getExpressApp())
-        .get('/api/currencies');
+        .post('/api/currencies')
+        .send({ query: `{ rates { code, rate }}`});
+
+      const expected = {
+        data: {
+          rates: [
+            {
+              code: 'AED',
+              rate: 4.032625,
+            },
+            {
+              code: 'DKK',
+              rate: 86.086235,
+            },
+            {
+              code: 'ALL',
+              rate: 121.005361,
+            },
+          ],
+        },
+      };
 
       expect(response.ok).toBeTruthy();
-      expect(response.body).toEqual(cRates);
+      expect(response.body).toEqual(expected);
     });
 
     it('serves a page not found page', async () => {

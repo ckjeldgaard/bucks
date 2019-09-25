@@ -14,9 +14,9 @@ export default class ApiSchema implements Schema {
   private readonly repository: Repository;
 
   constructor(repository: Repository) {
-    /* if (!repository) {
+    if (!repository) {
       throw new Error('Repository cannot be null!');
-    } */
+    }
     this.repository = repository;
   }
 
@@ -28,7 +28,7 @@ export default class ApiSchema implements Schema {
         rate: 4.032625,
       },
       {
-        code: 'AFN',
+        code: 'DKK',
         rate: 86.086235,
       },
       {
@@ -75,7 +75,7 @@ export default class ApiSchema implements Schema {
             const postsList: object[] = [];
             // tslint:disable-next-line:forin
             for (const identifier in id) {
-              console.log('idx', rates[identifier]);
+              // @ts-ignore
               postsList.push(rates[identifier]);
             }
             return postsList;
@@ -84,7 +84,6 @@ export default class ApiSchema implements Schema {
         rates: {
           type: new GraphQLList(rateType),
           resolve: () => {
-            Logger.Warn(this.repository, true);
             return rates;
           },
         },

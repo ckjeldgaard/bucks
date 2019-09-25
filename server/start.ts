@@ -12,12 +12,13 @@ const clientPath = (process.env.NODE_ENV === 'production') ? './public' : '../cl
 const server = new BucksServer(
   clientPath,
   [
-    new ApiController(
-      new StorageRepository(
-        new GoogleStorageStream('bucks-conversion-rates', 'rates.json'),
-      ),
-    ),
     new CronController(),
   ],
+  new ApiController(
+    '/api/currencies',
+    new StorageRepository(
+      new GoogleStorageStream('bucks-conversion-rates', 'rates.json'),
+    ),
+  ),
 );
 server.start(port);

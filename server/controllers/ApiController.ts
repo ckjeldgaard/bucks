@@ -1,36 +1,28 @@
-import {Request, Response} from 'express';
-import {Controller, Get, Post, ClassMiddleware, Middleware} from '@overnightjs/core';
-import {Logger} from '@overnightjs/logger';
 import Repository from '../data/Repository';
 import {Ctrl} from './Ctrl';
-import graphqlHTTP = require('express-graphql');
+import graphqlHTTP from 'express-graphql';
 import ApiSchema from '../model/schema/ApiSchema';
+import GraphQLMiddleware from '../model/schema/GraphQLMiddleware';
 
-@Controller('api')
-@ClassMiddleware(graphqlHTTP({
-  schema: new ApiSchema(this.repository).provideSchema(),
-  graphiql: true,
-}))
-export class ApiController implements Ctrl {
+export class ApiController implements Ctrl, GraphQLMiddleware {
 
+  private readonly endpointPath: string;
   private readonly repository: Repository;
 
-  constructor(repository: Repository) {
+  constructor(endpointPath: string, repository: Repository) {
+    this.endpointPath = endpointPath;
     this.repository = repository;
-
-    Reflect.defineMetadata('repo', repository, this);
   }
 
-  @Get('currencies')
-  private apiCurrencies(req: Request, res: Response): void {
-    Logger.Info('apiCurrenciesGET', true);
-    const rates = {rates: 'currencies'};
+  public endpoint(): string {
+    return this.endpointPath;
   }
 
-  @Post('currencies')
-  private postCurrencies(req: Request, res: Response): void {
-    Logger.Info('apiCurrenciesPOST', true);
-    const rates = {rates: 'currencies'};
+  public buildGraphQL(): graphqlHTTP.Middleware {
+    return graphqlHTTP({
+      schema: new ApiSchema(this.repository).provideSchema(),
+      graphiql: process.env.NODE_ENV !== 'production',
+    });
   }
 
 }

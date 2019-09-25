@@ -13,7 +13,7 @@
     "esModuleInterop": true,
     "jsx": "react",
     "forceConsistentCasingInFileNames": true,
-    "noImplicitAny": false,
+    "noImplicitAny": true,
     "types": [
       "node", "jest"
     ],
