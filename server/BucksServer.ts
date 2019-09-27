@@ -6,12 +6,14 @@ import {Server} from '@overnightjs/core';
 import {Logger} from '@overnightjs/logger';
 import {Ctrl} from './controllers/Ctrl';
 import GraphQLMiddleware from './model/schema/GraphQLMiddleware';
+import * as http from 'http';
 
 class BucksServer extends Server {
   private readonly router: Router;
   private readonly clientPath: string;
   private readonly controllers: Ctrl[];
   private readonly graphQlMiddleware?: GraphQLMiddleware;
+  private httpServer?: http.Server;
 
   constructor(clientPath: string, controllers: Ctrl[], graphQlMiddleware?: GraphQLMiddleware) {
     super(true);
@@ -51,7 +53,7 @@ class BucksServer extends Server {
   }
 
   public start(port: number): void {
-    this.app.listen(port, () => {
+    this.httpServer = this.app.listen(port, () => {
       const env: string = (process.env.NODE_ENV === 'production') ? 'port ' : 'http://localhost:';
       Logger.Imp(`Server started on ${env}${port}`);
     });
@@ -59,6 +61,10 @@ class BucksServer extends Server {
 
   public getExpressApp(): express.Application {
     return this.app;
+  }
+
+  public getHttpServer(): http.Server | undefined {
+    return this.httpServer;
   }
 }
 

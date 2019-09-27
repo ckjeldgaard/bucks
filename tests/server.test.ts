@@ -9,6 +9,7 @@ describe('Server', () => {
     request(server.getExpressApp())
       .get('/')
       .expect(200, done);
+    server.getHttpServer()!.close();
   });
   it('echoes a message in the api', async () => {
 
