@@ -1,28 +1,33 @@
 import request from 'supertest';
 import BucksServer from '../server/BucksServer';
 import {ApiController} from '../server/controllers';
-import StorageRepository from '../server/data/StorageRepository';
-import FakeStorageStream from './__fakes__/FakeStorageStream';
+import FakeRepository from './__fakes__/FakeRepository';
 
 describe('Server', () => {
     it('echoes a message in the api', async () => {
 
-      const apiResponse = { rates: {DKK: 7.466899, NOK: 9.875919, SEK: 10.705554 } };
+      const apiResponse = {DKK: 7.466899, NOK: 9.875919, SEK: 10.705554 };
       const server: BucksServer = new BucksServer(
         '',
         [],
         new ApiController(
           '/api/currencies',
-          new StorageRepository(new FakeStorageStream(apiResponse)),
+          new FakeRepository(apiResponse),
         ),
       );
       const response: request.Response = await request(server.getExpressApp())
         .post('/api/currencies')
-        .send({ query: `{rate(id: ["DKK", "NOK", "SEK"]) {code}}`});
+        .send({ query: `{rate(id: ["DKK", "NOK", "SEK"]) {code, rate}}`});
 
       expect(response.ok).toBeTruthy();
       expect(response.body).toEqual({
-        data: {rate: [{code: 'DKK'}, {code: 'NOK'}, {code: 'SEK'}]},
+        data: {
+          rate: [
+            { code: 'DKK', rate: 7.466899},
+            { code: 'NOK', rate: 9.875919},
+            { code: 'SEK', rate: 10.705554},
+          ],
+        },
       });
     });
 

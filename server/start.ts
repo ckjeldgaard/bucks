@@ -3,6 +3,7 @@ import dotenv from 'dotenv';
 import {ApiController, CronController} from './controllers';
 import StorageRepository from './data/StorageRepository';
 import GoogleStorageStream from './data/stream/GoogleStorageStream';
+import DatastoreRepository from './data/DatastoreRepository';
 
 dotenv.config();
 
@@ -16,9 +17,10 @@ const server = new BucksServer(
   ],
   new ApiController(
     '/api/currencies',
-    new StorageRepository(
+    new DatastoreRepository(),
+    /* new StorageRepository(
       new GoogleStorageStream('bucks-conversion-rates', 'rates.json'),
-    ),
+    ), */
   ),
 );
 server.start(port);

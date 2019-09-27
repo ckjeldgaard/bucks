@@ -33,6 +33,7 @@
   "license": "MIT",
   "homepage": "https://bucks-currency-converter.appspot.com/",
   "dependencies": {
+    "@google-cloud/firestore": "^2.3.0",
     "@google-cloud/storage": "^3.3.0",
     "@overnightjs/core": "^1.6.9",
     "@overnightjs/logger": "^1.1.9",
