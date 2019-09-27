@@ -33,7 +33,7 @@ export default class DatastoreRepository implements Repository {
   }
 
   public async saveRates(rates: Rates): Promise<void> {
-    const docRef = await this.firestore.doc('xchange/currency_rates');
+    const docRef = await this.firestore.doc('xchangex/currency_rates');
     docRef.set({rates: { rates }});
     Logger.Info(rates, true);
   }
