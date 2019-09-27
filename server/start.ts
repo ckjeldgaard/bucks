@@ -1,8 +1,6 @@
 import BucksServer from './BucksServer';
 import dotenv from 'dotenv';
 import {ApiController, CronController} from './controllers';
-import StorageRepository from './data/StorageRepository';
-import GoogleStorageStream from './data/stream/GoogleStorageStream';
 import DatastoreRepository from './data/DatastoreRepository';
 
 dotenv.config();
