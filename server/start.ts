@@ -16,9 +16,7 @@ const server = new BucksServer(
   new ApiController(
     '/api/currencies',
     new DatastoreRepository(),
-    /* new StorageRepository(
-      new GoogleStorageStream('bucks-conversion-rates', 'rates.json'),
-    ), */
   ),
 );
 server.start(port);
+export default server;
