@@ -1,6 +1,4 @@
 import React from 'react';
-import { useStaticQuery, graphql } from 'gatsby';
-import Img from 'gatsby-image';
 import {gql} from 'apollo-boost';
 import { useQuery } from '@apollo/react-hooks';
 
