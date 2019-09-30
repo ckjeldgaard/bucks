@@ -2,6 +2,7 @@ import express, {Router} from 'express';
 import * as bodyParser from 'body-parser';
 import * as path from 'path';
 
+import cors from 'cors';
 import {Server} from '@overnightjs/core';
 import {Logger} from '@overnightjs/logger';
 import {Ctrl} from './controllers/Ctrl';
@@ -23,6 +24,9 @@ class BucksServer extends Server {
 
     this.app.use(bodyParser.json());
     this.app.use(bodyParser.urlencoded({extended: true}));
+    this.app.use(cors({
+      origin: 'http://localhost:8000',
+    }));
 
     this.router = express.Router();
 

@@ -5,14 +5,16 @@
  * See: https://www.gatsbyjs.org/docs/use-static-query/
  */
 
-import React from "react"
-import PropTypes from "prop-types"
-import { useStaticQuery, graphql } from "gatsby"
+import React from 'react';
+import PropTypes from 'prop-types';
+import { useStaticQuery, graphql } from 'gatsby';
 
-import Header from "./header/header"
-import "./layout.css"
+import Header from './header/header';
+import './layout.css';
+import { ApolloProvider } from '@apollo/react-hooks';
+import client from '../data/ApolloClient';
 
-const Layout = ({ children }) => {
+const Layout = ( {children}: any ) => {
   const data = useStaticQuery(graphql`
     query SiteTitleQuery {
       site {
@@ -21,10 +23,10 @@ const Layout = ({ children }) => {
         }
       }
     }
-  `)
+  `);
 
   return (
-    <>
+    <ApolloProvider client={client}>
       <Header siteTitle={data.site.siteMetadata.title} />
       <div
         style={{
@@ -38,15 +40,15 @@ const Layout = ({ children }) => {
         <footer>
           © {new Date().getFullYear()}, Built with
           {` `}
-          <a href="https://www.gatsbyjs.org">Gatsby</a>
+          <a href='https://www.gatsbyjs.org'>Gatsby</a>
         </footer>
       </div>
-    </>
-  )
-}
+    </ApolloProvider>
+  );
+};
 
 Layout.propTypes = {
   children: PropTypes.node.isRequired,
-}
+};
 
-export default Layout
+export default Layout;

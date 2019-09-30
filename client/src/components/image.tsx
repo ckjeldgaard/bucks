@@ -1,6 +1,8 @@
 import React from 'react';
 import { useStaticQuery, graphql } from 'gatsby';
 import Img from 'gatsby-image';
+import {gql} from 'apollo-boost';
+import { useQuery } from '@apollo/react-hooks';
 
 /*
  * This component is built using `gatsby-image` to automatically serve optimized
@@ -13,8 +15,33 @@ import Img from 'gatsby-image';
  * - `useStaticQuery`: https://www.gatsbyjs.org/docs/use-static-query/
  */
 
+const EXCHANGE_RATES = gql`
+  {
+  rate(id: ["DKK", "SEK", "NOK"]) {
+    rate,
+    code
+  }
+}
+`;
+
 const Image = () => {
-  const data = useStaticQuery(graphql`
+  const { loading, error, data } = useQuery(EXCHANGE_RATES);
+
+  if (loading) { return <p>Loading...</p>; }
+  if (error) {
+    console.error('error', error);
+    return <p>Error :(</p>;
+  }
+
+  return data.rate.map(({ code, rate }: any) => (
+    <div key={code}>
+      <p>
+        {code}: {rate}
+      </p>
+    </div>
+  ));
+
+  /* const imgData = useStaticQuery(graphql`
     query {
       placeholderImage: file(relativePath: { eq: "gatsby-astronaut.png" }) {
         childImageSharp {
@@ -26,7 +53,7 @@ const Image = () => {
     }
   `);
 
-  return <Img fluid={data.placeholderImage.childImageSharp.fluid} />;
+  return <Img fluid={imgData.placeholderImage.childImageSharp.fluid} />; */
 };
 
 export default Image;
