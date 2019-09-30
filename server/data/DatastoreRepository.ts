@@ -2,6 +2,8 @@ import Repository from './Repository';
 import Rates from '../model/Rates';
 import {Firestore} from '@google-cloud/firestore';
 import {Logger} from '@overnightjs/logger';
+import DocumentReference = FirebaseFirestore.DocumentReference;
+import WriteResult = FirebaseFirestore.WriteResult;
 
 export default class DatastoreRepository implements Repository {
 
@@ -13,7 +15,7 @@ export default class DatastoreRepository implements Repository {
 
   public getRates(): Promise<Rates> {
     return new Promise<Rates>(async (resolve, reject) => {
-      const docRef = await this.firestore.doc('xchange/currency_rates');
+      const docRef: DocumentReference = await this.firestore.doc('xchange/currency_rates');
 
       try {
         const document = await docRef.get();
@@ -33,9 +35,14 @@ export default class DatastoreRepository implements Repository {
   }
 
   public async saveRates(rates: Rates): Promise<void> {
-    const docRef = await this.firestore.doc('xchangex/currency_rates');
-    docRef.set({rates: { rates }});
-    Logger.Info(rates, true);
+    try {
+      const docRef: DocumentReference = await this.firestore.doc('xchange/currency_rates');
+      const result: WriteResult = await docRef.set( {rates});
+      Logger.Info(result, true);
+    } catch (err) {
+      Logger.Err('Error saving rates' + err.toString(), true);
+      throw err;
+    }
   }
 
 }
